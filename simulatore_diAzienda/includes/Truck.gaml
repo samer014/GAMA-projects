@@ -12,6 +12,7 @@ model Truck
 
 import "./grid_definition.gaml"
 import "./order.gaml"
+import "../models/dematerializzazione.gaml"
 
 species Truck {
 	string cv;
@@ -29,8 +30,7 @@ species Truck {
 	init {
 		location <- cell.location;
 		cv <- "CM" + rnd (1000);
-		ordineInCarico <- null;
-		capacita <- truck_capacity;
+		capacita <- 20;
 		totQuadrati <- 0;
 		inViaggio <- false;
 	}

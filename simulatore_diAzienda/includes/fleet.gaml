@@ -7,6 +7,7 @@
 
 
 model fleet
+
 import "./Truck.gaml"
 
 /* Insert your model definition here */

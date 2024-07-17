@@ -4,19 +4,9 @@
 * Author: pacom
 * Tags: 
 */
-
-
 model order
-import "./"
 
-/* Insert your model definition here */
-
-species order{
-	string cv;
-	list<map> lista_prodotti;
-	
-	init{
-		cv <- "OR" + rnd (1000);
-		lista_prodotti[{"prd1",0},{"prd2",0},{"prd3",0},{"prd4",0},{"prd5",0}]
-	}
+species order {
+	string cv <- "OR" + rnd(1000);
+	map<string, int> lista_prodotti <- ["prd1"::0, "prd2"::0, "prd3"::0, "prd4"::0, "prd5"::0];
 }
