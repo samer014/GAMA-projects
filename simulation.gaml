@@ -11,6 +11,8 @@ global{
 	int young_count <- 0;
 	int adult_count <- 0;
 	int old_count <- 0;
+	float adult_chance_unemployed <- 15.0;
+
 	
 	int cycle <- 1 #year;
 	
@@ -52,8 +54,10 @@ experiment simulation  type:gui {
 species person{
 	int age <- rnd(human_min_age,human_max_age);
 	string gender <- one_of(["male","female"]);
-	string marital_status <- one_of(["bachelor","married","divorced"]);
+	string marital_status <- one_of(marital_status_list);
 	string age_status;
+	string job_status;
+	list<string> marital_status_list <- ["bachelor" , "married" , "divorced"];
 
 	aspect default{
 		if(gender = "male"){
@@ -75,13 +79,24 @@ species person{
 		old_count <- length(person where (each.age <= 61 and each.age >= 80));
 	}
 	
-	reflex age_status_giver{
+	reflex status_giver{
 		if(age <= 20){
 			age_status <- "young";
+			marital_status <- "bachelor";
+			job_status <- "unemployed";
 		}else if(age <= 60){
 			age_status <- "adult";
+			marital_status <- one_of(marital_status_list);
 		}else{
 			age_status <- "old";
+			int random <- rnd(1,100);
+			if(random = 1){
+				marital_status <- "bachelor";
+			}else if(random <= 10){
+				marital_status <- "divorced";
+			}else{
+				marital_status <- "married";
+			}
 		}
 	}
 	
